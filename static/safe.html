@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - VFXGamer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/font-awesome.min.css') }}">
+</head>
+<body id="page-top">
+    <header class="masthead" id='home' style="background: url({{ url_for('static', filename='assets/img/bg.jpg') }})">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1 class='display-4'>It is a <a href="https://www.phishing.org/what-is-phishing">safe</a> site</h1>
+                        <p>Click <a href="/">here</a> to return to home.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+</html>

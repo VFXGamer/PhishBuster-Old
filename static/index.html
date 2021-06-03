@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>PhishBuster</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/font-awesome.min.css') }}">
+</head>
+<body id="page-top">
+    <nav class="navbar navbar-light navbar-expand-md fixed-top" id="mainNav">
+        <div class="container"><a class="navbar-brand text-primary js-scroll-trigger" href="/">PhishBuster</a><button data-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link active js-scroll-trigger" href="#home">Home</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="#contribute">contribute</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="#contact">contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" id='home' style="background: url({{ url_for('static', filename='assets/img/bg.jpg') }})"><div class="intro-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <h1 class='display-4'>PhishBuster</h1>
+                    <form action={{url_for('check')}} method="POST">
+                        <div class="form-group ">
+                            <label for="name" >Enter URL:</label><br>
+                            <!-- To take url input from the user -->
+                            <center><input class="form-control col-7 rounded " type="text" name="inurl"></center>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Select the site:</label><br>
+                            <center>
+                                <select name="seurl" class='form-control col-7 rounded'>
+                                    <!-- For showing values in drop down menu -->
+                                    {% for u in selecturl %} 
+                                    <option value={{u[0]}}>{{u[1]}}</option> 
+                                    {% endfor %}
+                                </select>
+                            </center>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-default">Start Scan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="text-center content-section" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>About PhishBuster</h2>
+                    <p>It is an open source project on&nbsp;<a href="http://github.com/VFXGamer/PhishBuster">Github</a>.
+                    <br>Aim of the project is to reduce <a href="https://www.phishing.org/what-is-phishing">phishing</a> victims.&nbsp;</a>
+                    <br>How to use:<br>You just have to paste the url in the <i>Enter the url</i> section and select the site it resembles or it is supposed to be. and click on <i>START SCAN</i> and it will let you know it is a phishing site or not.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="text-center content-section" id="contribute" style="background: url({{ url_for('static', filename='assets/img/bg.jpg') }})">
+        <div class="container">
+            <div class="col-md-10 mx-auto">
+                <h1>Want to contribute</h1>
+                <p>This is an <a href="https://opensource.com/resources/what-open-source">open source</a> project. Feel free to join us.<br>Click on <i>reports</i> and report them to their respective domain name registrar.
+                    <br>Thank You</p>
+                <li class="list-inline-item">
+                    <a class="btn btn-primary btn-lg btn-default" role="button" href="http://github.com/VFXGamer/PhishBuster"><span class="network-name">Join Us</span></a>
+                    <a class="btn btn-primary btn-lg btn-default" role="button" href="/static/reports.txt"><span class="network-name">reports</span></a>
+                </li>
+            </div>
+        </div>
+    </section>
+    <section class="text-center content-section" id="contact" style="height: 451px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <h2>Contact us</h2>
+                    <p>If you have any queries or suggestions conatact me on Twitter, feel free to connect with us.<br>
+                        If you found a bug don't forget to report it on github issues tab.</p>
+                    <ul class="list-inline banner-social-buttons">
+                        <li class="list-inline-item"><a class="btn btn-primary btn-lg btn-default" role="button" href="http://github.com/VFXGamer/PhishBuster"><i class="fa fa-github fa-fw"></i><span class="network-name">&nbsp;github</span></a>&nbsp;<a class="btn btn-primary btn-lg btn-default" role="button" href="https://twitter.com/VFXGamer_1"><i class="fa fa-twitter fa-fw"></i><span class="network-name">&nbsp;Twitter</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="map-clean"></div>
+    <footer>
+        <div class="container text-center">
+            <p>Copyright ©VFXGamer 2021</p>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static', filename='assets/js/grayscale.js') }}"></script>
+</body>
+</html>
