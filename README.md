@@ -10,12 +10,16 @@
 
 ![image](https://user-images.githubusercontent.com/62838631/120368102-4b59fd00-c32f-11eb-978f-8dbffde01b61.png)
 
+### API Service
+Send a **GET** request to [PhishBuster Site](https://phishbuster-web.herokuapp.com/api/) and add *suspected link* followed by **+** and add the *site it is trying to refer to*.<br>
+Eg. https://phishbuster-web.herokuapp.com/api/suspected+refering
 
-## Installation Steps:
-1. `git clone https://github.com/VFXGamer/PhishBuster.git`
-2. `python -m pip install -r requirements.txt`
-3. Run `python app.py`
+### Installation Steps:
+1. Run `git clone https://github.com/VFXGamer/PhishBuster.git` in shell.
+2. Run `python -m pip install -r requirements.txt` to install all the required python modules.
+3. Run `python app.py` to launch the app.
 4. Done
+
 ### Aim of the project is to reduce phishing victims. 😇
 
 
