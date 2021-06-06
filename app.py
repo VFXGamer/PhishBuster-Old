@@ -41,5 +41,14 @@ def phish():
 def safe():
     return render_template("safe.html")
 
+@app.route("/api/<string:urlin>+<string:urlse>")
+def api(urlin,urlse):
+    output = pb.comparing_url(urlin,urlse)
+    return jsonify({
+        'Input Url':urlin,
+        'Orginal Url':urlse,
+        'Phishing Site':output
+        })
+
 if __name__ == '__main__':
     app.run(debug=True)
