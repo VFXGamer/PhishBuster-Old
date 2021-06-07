@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, jsonify
 import phishbuster as pb
 
 app = Flask(__name__,template_folder='static')
