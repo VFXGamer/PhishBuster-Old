@@ -4,7 +4,7 @@ import re
 
 def url_syntax(url_changes):
     url_search_http = re.search("http", url_changes)
-    if url_search_http == None:
+    if url_search_http is None:
         url_http = "http://" + url_changes
     else:
         url_http = url_changes
