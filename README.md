@@ -1,4 +1,7 @@
 # PhishBuster 💻
+![GitHub last commit](https://img.shields.io/github/last-commit/VFXGamer/PhishBuster?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/VFXGamer/PhishBuster?style=for-the-badge)
+![GitHub contributors](https://img.shields.io/github/contributors/VFXGamer/PhishBuster?style=for-the-badge)
 ## How to use 😀:
 
 1. You just have to paste the url in the **enter the url** section and **select the site** it resembles or it is supposed to be and click on **START SCAN** and it will let you know it is a phishing site or not.
