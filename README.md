@@ -13,6 +13,7 @@
 ### API Service
 Send a **GET** request to [PhishBuster Site](https://phishbuster-web.herokuapp.com/api/) and add *suspected link* followed by **+** and add the *site it is trying to refer to*.<br>
 Eg. https://phishbuster-web.herokuapp.com/api/suspected+refering
+**NOTE: Currently only domain inputs work for api.**
 
 ### Installation Steps:
 1. Run `git clone https://github.com/VFXGamer/PhishBuster.git` in shell.
