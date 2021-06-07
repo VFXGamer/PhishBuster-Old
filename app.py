@@ -23,7 +23,7 @@ def check():
         seurl = req['seurl'] # Storing url from drop down menu in a variable
         if inurl != '' and seurl != 'select':
             output = pb.comparing_url(inurl,seurl)
-            if output == True:
+            if output is True:
                 with open('static/reports.txt', 'a+') as p:
                     p.write('\n'+seurl+'\t'+inurl) # Stores all the phishing urls in reports.txt
                 return redirect('/phishing') # Redirects to It is  PHISHING SITE
