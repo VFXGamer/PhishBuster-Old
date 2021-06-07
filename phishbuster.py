@@ -4,7 +4,7 @@ import tldextract
 
 def url_syntax(url_changes):
     url_search_http = re.search("http", url_changes)
-    if url_search_http == None:
+    if url_search_http is None:
         url_http = "http://" + url_changes
     else:
         url_http = url_changes
@@ -12,7 +12,7 @@ def url_syntax(url_changes):
 
 def subdomain_re(domain_url):
     sub_addr = tldextract.extract(domain_url).subdomain
-    if sub_addr != None:  
+    if sub_addr is not None:  
         extract_domain = tldextract.extract(domain_url).domain
         extract_ext = tldextract.extract(domain_url).suffix
         filtered_sub = extract_domain + '.' + extract_ext
@@ -23,7 +23,7 @@ def subdomain_re(domain_url):
 def phishbuster_url(url_input): # removes ~@ (which are used for disgusing the url) and path
     corrected_url = url_syntax(url_input)
     url_search = re.search("~@", corrected_url)
-    if url_search != None:
+    if url_search is not None:
         domain = urlparse(corrected_url).netloc
         remove_to_hide_element = re.split("~@", domain)
         domain_url = remove_to_hide_element[1]
