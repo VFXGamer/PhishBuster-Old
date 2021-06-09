@@ -16,8 +16,9 @@
 
 ### API Service
 Send a **GET** request to [PhishBuster Site](https://phishbuster-web.herokuapp.com/api/) and add *suspected link* followed by **+** and add the *site it is trying to refer to*.<br>
-Eg. https://phishbuster-web.herokuapp.com/api/suspected+refering
-**NOTE: Currently only domain inputs work for api.**
+Eg. https://phishbuster-web.herokuapp.com/api/suspected+refering <br>
+**NOTE: To use API use** `call_api.py` **for proper functioning.**
+
 #### Steps:
 1. Set **inurl** to the input url and **seurl** to orginal domain.
 2. Run `python call_api.py` to use the PhishBuster API.
