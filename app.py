@@ -16,7 +16,7 @@ connect = mysql.connect()
 def index():
     cursor = connect.cursor()
     #execute select statement to fetch data to be displayed in dropdown
-    cursor.execute('SELECT names,domains FROM domain_data')
+    cursor.execute('SELECT names,domains FROM phishbuster')
     db_output = cursor.fetchall()
     lis = list(db_output)
     lis.sort()
