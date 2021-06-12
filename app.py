@@ -5,10 +5,10 @@ import os
 
 app = Flask(__name__,template_folder='static')
 mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = os.getenv(user)
-app.config['MYSQL_DATABASE_PASSWORD'] = os.getenv(password)
-app.config['MYSQL_DATABASE_DB'] = os.getenv(dbname)
-app.config['MYSQL_DATABASE_HOST'] = os.getenv(servername)
+app.config['MYSQL_DATABASE_USER'] = os.environ['user']
+app.config['MYSQL_DATABASE_PASSWORD'] = os.environ['password']
+app.config['MYSQL_DATABASE_DB'] = os.environ['dbname']
+app.config['MYSQL_DATABASE_HOST'] = os.environ['servername']
 mysql.init_app(app)
 connect = mysql.connect()
 
