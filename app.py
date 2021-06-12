@@ -1,18 +1,25 @@
 from flask import Flask, request, render_template, redirect, jsonify
 import phishbuster as pb
+from flaskext.mysql import MySQL
 
 app = Flask(__name__,template_folder='static')
+mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'user'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'password'
+app.config['MYSQL_DATABASE_DB'] = 'dbname'
+app.config['MYSQL_DATABASE_HOST'] = 'servername'
+mysql.init_app(app)
+connect = mysql.connect()
 
 @app.route("/")
 def index():
-    selecturl = [["github.com","Github"],
-    ["twitter.com","Twitter"],["google.com",'Google'],
-    ["amazon.com",'Amazon'],["netflix.com",'Netflix'],
-    ["wikipedia.org",'Wikipedia'],["reddit.com",'Reddit'],
-    ["zoom.us",'Zoom'],["walmart.com",'Walmart'],["instagram.com",'Instagram'],
-    ["wordpress.com",'Wordpress'],["paypal.com",'Paypal']]# List of Names and urls to show in the drop down menu
-    selecturl.sort()
-    selecturl = [["select","Select"]]+selecturl
+    cursor = connect.cursor()
+    #execute select statement to fetch data to be displayed in dropdown
+    cursor.execute('SELECT names,domains FROM domain_data')
+    db_output = cursor.fetchall()
+    lis = list(db_output)
+    lis.sort()
+    selecturl = [["Select","select"]]+lis
     return render_template("index.html",selecturl=selecturl)
 
 @app.route('/check', methods=["GET","POST"])
