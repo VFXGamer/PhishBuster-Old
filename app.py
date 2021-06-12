@@ -1,13 +1,14 @@
 from flask import Flask, request, render_template, redirect, jsonify
 import phishbuster as pb
 from flaskext.mysql import MySQL
+import os
 
 app = Flask(__name__,template_folder='static')
 mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = 'user'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'password'
-app.config['MYSQL_DATABASE_DB'] = 'dbname'
-app.config['MYSQL_DATABASE_HOST'] = 'servername'
+app.config['MYSQL_DATABASE_USER'] = os.getenv(user)
+app.config['MYSQL_DATABASE_PASSWORD'] = os.getenv(password)
+app.config['MYSQL_DATABASE_DB'] = os.getenv(dbname)
+app.config['MYSQL_DATABASE_HOST'] = os.getenv(servername)
 mysql.init_app(app)
 connect = mysql.connect()
 
