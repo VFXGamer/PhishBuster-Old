@@ -10,18 +10,24 @@ app.config['MYSQL_DATABASE_PASSWORD'] = os.environ['password']
 app.config['MYSQL_DATABASE_DB'] = os.environ['dbname']
 app.config['MYSQL_DATABASE_HOST'] = os.environ['servername']
 mysql.init_app(app)
-connect = mysql.connect()
 
 @app.route("/")
 def index():
-    cursor = connect.cursor()
-    #execute select statement to fetch data to be displayed in dropdown
-    cursor.execute('SELECT names,domains FROM domain_data')
-    db_output = cursor.fetchall()
-    lis = list(db_output)
-    lis.sort()
-    selecturl = [["Select","select"]]+lis
-    return render_template("index.html",selecturl=selecturl)
+    try:
+        connect = mysql.connect()
+        cursor = connect.cursor()
+        #execute select statement to fetch data to be displayed in dropdown
+        cursor.execute('SELECT names,domains FROM domain_data')
+        db_output = cursor.fetchall()
+        lis = list(db_output)
+        lis.sort()
+        selecturl = [["Select","select"]]+lis
+        return render_template("index.html",selecturl=selecturl)
+    except Exception as e:
+        print(e)
+        selecturl = [["Error Occured to connect with DB","select"]]
+        return render_template("index.html",selecturl=selecturl)
+    return redirect('/')
 
 @app.route('/check', methods=["GET","POST"])
 def check():
