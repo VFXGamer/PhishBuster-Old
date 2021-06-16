@@ -11,6 +11,8 @@ app.config['MYSQL_DATABASE_DB'] = os.environ['dbname']
 app.config['MYSQL_DATABASE_HOST'] = os.environ['servername']
 mysql.init_app(app)
 
+header = ['Sr No.', 'Orginal Site', 'Phishing Site']
+
 @app.route("/")
 def index():
     try:
@@ -38,13 +40,34 @@ def check():
         if inurl != '' and seurl != 'select':
             output = pb.comparing_url(inurl,seurl)
             if output is True:
-                with open('static/reports.txt', 'a+') as p:
-                    p.write('\n'+seurl+'\t'+inurl) # Stores all the phishing urls in reports.txt
+                try:
+                    cursor.execute(f"INSERT INTO reports_data(org_site,phish_site) VALUES ('{seurl}','{inurl}')")
+                    connect.commit()
+                    print('Commited Successfully')
+                except Exception as e:
+                    print(e)
+                    connect.rollback()
                 return redirect('/phishing') # Redirects to It is  PHISHING SITE
             else:
                 return redirect('/safe') # Redirects to It is SAFE SITE
         else:
             return redirect('/') # Redirects to home page if vlaues are not entered
+    return redirect('/')
+
+@app.route("/reports")
+def reports():
+    try:
+        connect = mysql.connect()
+        cursor = connect.cursor()
+        #execute select statement to fetch data to be displayed in dropdown
+        cursor.execute('SELECT * FROM reports_data')
+        db_output = cursor.fetchall()
+        lis = list(db_output)
+        return render_template("reports.html",head=header,reports = lis)
+    except Exception as e:
+        print(e)
+        lis = ["Error Occured to connect with DB"]
+        return render_template("reports.html",head=header,reports = lis)
     return redirect('/')
 
 @app.route("/phishing")
