@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - VFXGamer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/font-awesome.min.css') }}">
+</head>
+
+<body id="page-top">
+    <header class="masthead" id='home' style="background: url({{ url_for('static', filename='assets/img/bg.jpg') }})">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <table class="table table-hover table-dark">
+                            <thead>
+                              <tr>
+                                {% for h in head %}
+                                <th scope="col">{{ h }}</th>
+                                {% endfor %}
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in reports %}
+                                <tr> 
+                                    {% for cell in row %}
+                                    <td>{{ cell }}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    </div>
+    </section>
+    <div class="map-clean"></div>
+    <footer>
+        <div class="container text-center">
+            <p>Copyright ©VFXGamer 2021</p>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static', filename='assets/js/grayscale.js') }}"></script>
+</body>
+
+</html>
