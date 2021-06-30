@@ -5,7 +5,7 @@
 [![DeepSource](https://deepsource.io/gh/VFXGamer/PhishBuster.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/VFXGamer/PhishBuster/?ref=repository-badge)
 
 ## Sites:
-For more details visit our [Blog](https://cybervfx.tech/phishbuster)<br>
+For more details visit our [Blog](http://blog.cybervfx.tech/2021/06/phishbuster.html)<br>
 Link to [PhishBuster](https://phishbuster-web.herokuapp.com/)
 
 ## How to use 😀:
@@ -25,9 +25,9 @@ Eg. https://phishbuster-web.herokuapp.com/api/suspected+refering <br>
 **NOTE: To use API use** `call_api.py` **for proper functioning.**
 
 #### Steps:
-1. Set **inurl** to the input url and **seurl** to orginal domain.
+1. Set **inurl** to the input url and **seurl** to original domain.
 2. Run `python call_api.py` to use the PhishBuster API.
-3. You will recieve a *json* output with 3 fields *Input Url*, *Orginal Url*, *Phishing Site* (boolean output).
+3. You will receive a *json* output with 3 fields *Input Url*, *Original Url*, *Phishing Site* (boolean output).
 
 ### Installation Steps:
 1. Run `git clone https://github.com/VFXGamer/PhishBuster.git` in shell.
