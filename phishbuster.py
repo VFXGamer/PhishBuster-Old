@@ -36,9 +36,9 @@ def comparing_url(url_phish,url_org):
     input_url = phishbuster_url(url_phish)
     final_url = subdomain_re(input_url)
     if final_url == url_org:
-        output_comparison = bool(False) # Returns False
+        output_comparison = bool(False) # Returns False for non-phishing sites
     else:
-        output_comparison = bool(True) # Returns True
+        output_comparison = bool(True) # Returns True for phishing sites
     return output_comparison
     
 
