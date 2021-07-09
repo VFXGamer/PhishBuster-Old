@@ -1,23 +1,38 @@
 from flask import Flask, request, render_template, redirect, jsonify
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import phishbuster as pb
 from flaskext.mysql import MySQL
 import os
 
 app = Flask(__name__,template_folder='static')
+limiter = Limiter(app, key_func=get_remote_address)
 mysql = MySQL()
+
 app.config['MYSQL_DATABASE_USER'] = os.environ['user']
 app.config['MYSQL_DATABASE_PASSWORD'] = os.environ['password']
 app.config['MYSQL_DATABASE_DB'] = os.environ['dbname']
 app.config['MYSQL_DATABASE_HOST'] = os.environ['servername']
+
 mysql.init_app(app)
 
 header = ['Sr No.', 'Orginal Site', 'Phishing Site']
 
+connect = mysql.connect()
+cursor = connect.cursor()
+
+def mysqldata(seurl,inurl):
+    try:
+        cursor.execute(f"INSERT INTO reports_data(org_site,phish_site) VALUES ('{seurl}','{inurl}')")
+        connect.commit()
+        print('Commited Successfully')
+    except Exception as e:
+        print(e)
+        connect.rollback()
+
 @app.route("/")
 def index():
     try:
-        connect = mysql.connect()
-        cursor = connect.cursor()
         #execute select statement to fetch data to be displayed in dropdown
         cursor.execute('SELECT names,domains FROM domain_data')
         db_output = cursor.fetchall()
@@ -31,7 +46,7 @@ def index():
         return render_template("index.html",selecturl=selecturl)
     return redirect('/')
 
-@app.route('/check', methods=["GET","POST"])
+@app.route('/check', methods=["POST"])
 def check():
     if request.method == "POST":
         req = request.form
@@ -40,13 +55,7 @@ def check():
         if inurl != '' and seurl != 'select':
             output = pb.comparing_url(inurl,seurl)
             if output is True:
-                try:
-                    cursor.execute(f"INSERT INTO reports_data(org_site,phish_site) VALUES ('{seurl}','{inurl}')")
-                    connect.commit()
-                    print('Commited Successfully')
-                except Exception as e:
-                    print(e)
-                    connect.rollback()
+                mysqldata(seurl,inurl)
                 return redirect('/phishing') # Redirects to It is  PHISHING SITE
             else:
                 return redirect('/safe') # Redirects to It is SAFE SITE
@@ -78,14 +87,18 @@ def phish():
 def safe():
     return render_template("safe.html")
 
-@app.route("/api/<string:urlin>+<string:urlse>")
-def api(urlin,urlse):
-    output = pb.comparing_url(urlin,urlse)
-    return jsonify({
-        'Input Url':urlin,
-        'Orginal Url':urlse,
-        'Phishing Site':output
-        })
+@app.route("/api/<string:inurl>+<string:seurl>+<string:save>")
+@limiter.limit("50/minute")
+def api(inurl,seurl,save = 'False'):
+    inurl.lower()
+    seurl.lower()
+    output = pb.comparing_url(inurl,seurl)
+    if save == 'True':
+        if output is True:
+            mysqldata(seurl,inurl)
+            return jsonify({'Input Url':inurl,'Orginal Url':seurl,'Phishing Site':output,'Data Saved':bool(save)})
+        return jsonify({'Input Url':inurl,'Orginal Url':seurl,'Phishing Site':output,}) 
+    return jsonify({'Input Url':inurl,'Orginal Url':seurl,'Phishing Site':output})
 
 if __name__ == '__main__':
     app.run()
