@@ -66,8 +66,6 @@ def check():
 @app.route("/reports")
 def reports():
     try:
-        connect = mysql.connect()
-        cursor = connect.cursor()
         #execute select statement to fetch data to be displayed in dropdown
         cursor.execute('SELECT * FROM reports_data')
         db_output = cursor.fetchall()
