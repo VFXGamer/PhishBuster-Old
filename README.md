@@ -1,5 +1,6 @@
 # PhishBuster 💻
 ![GitHub last commit](https://img.shields.io/github/last-commit/VFXGamer/PhishBuster?style=for-the-badge)
+[![CodeFactor](https://www.codefactor.io/repository/github/vfxgamer/phishbuster/badge)](https://www.codefactor.io/repository/github/vfxgamer/phishbuster)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/VFXGamer/PhishBuster?style=for-the-badge)
 ![GitHub contributors](https://img.shields.io/github/contributors/VFXGamer/PhishBuster?style=for-the-badge)<br>
 [![DeepSource](https://deepsource.io/gh/VFXGamer/PhishBuster.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/VFXGamer/PhishBuster/?ref=repository-badge)
