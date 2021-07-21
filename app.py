@@ -14,15 +14,16 @@ app.config['MYSQL_DATABASE_USER'] = os.environ['user']
 app.config['MYSQL_DATABASE_PASSWORD'] = os.environ['password']
 app.config['MYSQL_DATABASE_DB'] = os.environ['dbname']
 app.config['MYSQL_DATABASE_HOST'] = os.environ['servername']
+
 mysql.init_app(app) 
 
 header = ['Sr No.', 'Orginal Site', 'Phishing Site','Action'] # Header for reports table
 
 connect = mysql.connect() # for connecting to the database
-cursor = connect.cursor() # cursor to execute mysql queries
 
 def mysqldata_insert(seurl,inurl): # For appending values to reports_data table
     try:
+        cursor = connect.cursor() # cursor to execute mysql queries
         cursor.execute(f"INSERT INTO reports_data(org_site,phish_site) VALUES ('{seurl}','{inurl}')") # mysql query to append data to the dataabase
         connect.commit() # commit changes to database
         print('Commited Successfully')
@@ -34,6 +35,7 @@ def mysqldata_insert(seurl,inurl): # For appending values to reports_data table
 @app.route("/")
 def index():
     try:
+        cursor = connect.cursor() # cursor to execute mysql queries
         cursor.execute('SELECT names,domains FROM domain_data') # mysql query to get all the data from the database
         db_output = cursor.fetchall() # fetching all the data from the database
         lis = list(db_output) # converting tuple to list
@@ -73,15 +75,16 @@ def check():
 @app.route("/reports")
 def reports():
     try:
+        cursor = connect.cursor() # cursor to execute mysql queries
         cursor.execute('SELECT * FROM reports_data') # '*' here is for id, orginal site and phising site
         db_output = cursor.fetchall()
         # converting to list to pass the data to html
-        reports = list(db_output)
-        return render_template("reports.html",head=header,reports=reports) # header for column names and reports for rows/site data
+        report = list(db_output)
+        return render_template("reports.html",head=header,reports=report) # header for column names and reports for rows/site data
     except Exception as e:
         print(e)
-        reports = ["Error Occured to connect with DB"] # if error occured while fetching data from the database
-        return render_template("reports.html",head=header,reports=reports)
+        report = ["Error Occured to connect with DB"] # if error occured while fetching data from the database
+        return render_template("reports.html",head=header,reports=report)
     return redirect('/')
 
 # phising label page
@@ -97,6 +100,7 @@ def safe():
 # For deleteing a desired row   
 @app.route('/delete/<id>/')
 def delete(id):
+    cursor = connect.cursor() # cursor to execute mysql queries
     cursor.execute(f"DELETE FROM reports_data WHERE id='{id}';") # mysql query to delete data of a row
     connect.commit() # commit changes to the database
     print('Commited Successfully')
