@@ -6,7 +6,7 @@
                         <div class="form-group ">
                             <label for="name" >Enter URL:</label><br>
                             <!-- To take url input from the user -->
-                            <center><input class="form-control col-7 rounded " type="url" name="inurl"></center>
+                            <center><input class="form-control col-7 rounded " type="url" name="inurl" required="1"></center>
                         </div>
                         <div class="form-group">
                             <label for="name">Select the site:</label><br>
@@ -19,7 +19,19 @@
                                 </select>
                             </center>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg btn-default">Start Scan</button>
+                        <div class="form-group">
+                            <label for="name">Select the Country:</label><br>
+                            <center>
+                                <select name="country" class='form-control col-7 rounded'>
+                                    <!-- For showing values in drop down menu -->
+                                    {% for c in countrydata %}
+                                    <option value={{c[1]}}>{{c[0]}}</option>
+                                    {% endfor %}
+                                </select>
+                            </center>
+                        </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-default">Start Scan</button>
+                        
                     </form>
                 </div>
     {% endblock %}
