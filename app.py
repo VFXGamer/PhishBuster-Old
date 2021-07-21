@@ -19,10 +19,9 @@ mysql.init_app(app)
 
 header = ['Sr No.', 'Orginal Site', 'Phishing Site','Action'] # Header for reports table
 
-connect = mysql.connect() # for connecting to the database
-
 def mysqldata_insert(seurl,inurl): # For appending values to reports_data table
     try:
+        connect = mysql.connect() # for connecting to the database
         cursor = connect.cursor() # cursor to execute mysql queries
         cursor.execute(f"INSERT INTO reports_data(org_site,phish_site) VALUES ('{seurl}','{inurl}')") # mysql query to append data to the dataabase
         connect.commit() # commit changes to database
@@ -35,6 +34,7 @@ def mysqldata_insert(seurl,inurl): # For appending values to reports_data table
 @app.route("/")
 def index():
     try:
+        connect = mysql.connect() # for connecting to the database
         cursor = connect.cursor() # cursor to execute mysql queries
         cursor.execute('SELECT names,domains FROM domain_data') # mysql query to get all the data from the database
         db_output = cursor.fetchall() # fetching all the data from the database
@@ -75,6 +75,7 @@ def check():
 @app.route("/reports")
 def reports():
     try:
+        connect = mysql.connect() # for connecting to the database
         cursor = connect.cursor() # cursor to execute mysql queries
         cursor.execute('SELECT * FROM reports_data') # '*' here is for id, orginal site and phising site
         db_output = cursor.fetchall()
@@ -100,6 +101,7 @@ def safe():
 # For deleteing a desired row   
 @app.route('/delete/<id>/')
 def delete(id):
+    connect = mysql.connect() # for connecting to the database
     cursor = connect.cursor() # cursor to execute mysql queries
     cursor.execute(f"DELETE FROM reports_data WHERE id='{id}';") # mysql query to delete data of a row
     connect.commit() # commit changes to the database
