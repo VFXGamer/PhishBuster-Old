@@ -132,4 +132,4 @@ def api(inurl,seurl,country,save = 'False'):
     return jsonify({'Input Url':inurl,'Orginal Url':seurl,'Phishing Site':output,'Region':country}) # API response if values are not saved
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
