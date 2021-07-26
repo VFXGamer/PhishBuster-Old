@@ -3,7 +3,6 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import phishbuster as pb
 from flaskext.mysql import MySQL
-import requests
 import os
 
 app = Flask(__name__,template_folder='static')
