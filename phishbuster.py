@@ -46,7 +46,7 @@ def comparing_url(url_phish,url_org,country):
     input_url = phishbuster_url(url_phish) # removing path and hinding characters from the url
     final_url = subdomain_re(input_url) # removing sub domain from the url
     regional = tldextract.extract(url_org).domain +'.'+ country.lower() # adding country to the url
-    if final_url == url_org or final_url == regional:
+    if final_url in (url_org,regional):
         output_comparison = bool(False) # Returns False for non-phishing sites
     else:
         output_comparison = bool(True) # Returns True for phishing sites
