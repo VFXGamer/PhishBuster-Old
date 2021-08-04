@@ -1,8 +1,9 @@
-from flask import Flask, request, render_template, redirect, jsonify, flash, url_for
+from flask import Flask, request, render_template, redirect, jsonify
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import phishbuster as pb
 from flaskext.mysql import MySQL
+import requests
 import os
 
 app = Flask(__name__,template_folder='static')
@@ -22,15 +23,14 @@ def mysqldata_insert(seurl,inurl): # For appending values to reports_data table
     try:
         connect = mysql.connect() # for connecting to the database
         cursor = connect.cursor() # cursor to execute mysql queries
-        cursor.execute(f"INSERT INTO reports_data(org_site,phish_site) VALUES ('{seurl}','{inurl}')") # mysql query to append data to the dataabase
+        cursor.execute(f"INSERT INTO reports_data(org_site,phish_site) VALUES (%(seurl)s,%(inurl)s)",{'seurl':seurl,'inurl': inurl}) # mysql query to append data to the dataabase
         connect.commit() # commit changes to database
         print('Commited Successfully')
     except Exception as e:
         print(e)
         connect.rollback() # undo changes if error occured while appending data to the database
 
-# index page
-@app.route("/")
+@app.route("/") # index page
 def index():
     try:
         connect = mysql.connect() # for connecting to the database
@@ -102,7 +102,7 @@ def safe():
 def delete(id):
     connect = mysql.connect() # for connecting to the database
     cursor = connect.cursor() # cursor to execute mysql queries
-    cursor.execute(f"DELETE FROM reports_data WHERE id='{id}';") # mysql query to delete data of a row
+    cursor.execute(f"DELETE FROM reports_data WHERE id=%(id)s;",{'id': id}) # mysql query to delete data of a row
     connect.commit() # commit changes to the database
     print('Commited Successfully')
     return redirect('/reports') # Redirecting to reports page to show that changes were made successfully
@@ -113,7 +113,7 @@ def manualadd():
     if request.method == 'POST':
         req = request.form
         seurl = req['org'] # getting values through post request and storing to a variable
-        inurl = req['phish'] # getting values through post request and storing to a variable
+        inurl = req['phish'] # getting values through post request and storing to a variable   
         mysqldata_insert(seurl,inurl) # To adding data to the database
         return redirect('/reports') # Redirecting to reports page to show that changes were made successfully
 
@@ -131,4 +131,4 @@ def api(inurl,seurl,country,save = 'False'):
     return jsonify({'Input Url':inurl,'Orginal Url':seurl,'Phishing Site':output,'Region':country}) # API response if values are not saved
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
